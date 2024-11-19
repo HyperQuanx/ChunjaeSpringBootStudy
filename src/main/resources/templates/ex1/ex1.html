@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<style>
+  pre {
+    font-family: 'Courier New', Courier, monospace;
+    white-space: pre;
+    line-height: 1;
+  }
+</style>
+<body>
+  <h1 id="h1" th:text="${msg}"></h1>
+
+  <ul>
+    <li>변수의 선언
+      <ul>
+        <li th:with="num1=${10}, num2=${20}" th:text="${num1 + num2}"></li>
+      </ul>
+    </li>
+  </ul>
+
+  <pre>
+        /\     /\
+       {  `---'  }
+       {  O   O  }
+       ~~>  V  <~~
+        \ \|/ /
+         `-----'____
+         /     \    \_
+        {       }\  )_\_   _
+        |  \_/  -/ /`--' ( (  )
+        \__/  (_/ /       \__/
+               ((
+                \\
+    </pre>
+</body>
+</html>
