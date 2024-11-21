@@ -4,37 +4,98 @@
   <meta charset="UTF-8">
   <title>Title</title>
 </head>
-<style>
-  pre {
-    font-family: 'Courier New', Courier, monospace;
-    white-space: pre;
-    line-height: 1;
-  }
-</style>
 <body>
-  <h1 id="h1" th:text="${msg}"></h1>
+<h1 id="h1" th:text="${msg}"></h1>
 
-  <ul>
-    <li>변수의 선언
-      <ul>
-        <li th:with="num1=${10}, num2=${20}" th:text="${num1 + num2}"></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+  <li>변수의 선언
+    <ul>
+      <li th:with="num1=${10}, num2=${20}" th:text="'num1 = ' + ${num1} + ', num2 = ' + ${num2}"></li>
+    </ul>
+  </li>
+  <li>
+    <b>제어문 : if</b>
+    <ul th:with="num1=${10}, num2=${20}">
+      <li th:if="${num1 > num2}" th:text="${num1} + ' > ' + ${num2} + ' = true'"></li>
+      <li th:if="${num1 < num2}" th:text="${num1} + ' < ' + ${num2} + ' = true'"></li>
+      <li th:unless="${num1 > num2}" th:text="${num1} + ' <= ' + ${num2} + ' = false'"></li>
+    </ul>
+  </li>
+  <li>
+    <b>제어문 : 삼항연산자 ?</b>
+    <ul th:with="num1=${10}, num2=${20}">
+      <li th:text="${num1 > num2 ? 'num1이 num2보다 큽니다.' : 'num1이 num2보다 작거나 같습니다.'}"></li>
+    </ul>
+  </li>
+  <li>반복문 : each
+    <ul th:each="item, iterStat : ${list}">
+      <li th:text="'아이템: ' + ${item} + ', 인덱스: ' + ${iterStat.index}"></li>
+      <li th:text="'첫 번째 항목 여부: ' + ${iterStat.first}"></li>
+      <li th:text="'마지막 항목 여부: ' + ${iterStat.last}"></li>
+      <li th:text="'총 반복 수: ' + ${iterStat.count}"></li>
+    </ul>
+  </li>
+  <li>
+    <b>조건 분기 : switch-case</b>
+    <ul th:switch="${num1}">
+      <li th:case="10" th:text="'num1은 10입니다.'"></li>
+      <li th:case="20" th:text="'num1은 20입니다.'"></li>
+      <li th:case="*">num1은 10이나 20이 아닙니다.</li>
+    </ul>
+  </li>
+  <li>
+    <b>상태 및 반복 제어</b>
+    <ul th:each="statusItem, statusStat : ${statusList}">
+      <li>
+        <span th:text="'상태 아이템: ' + ${statusItem}"></span>
+        <span th:if="${statusStat.odd}" th:text="' - 홀수 번째 항목'"></span>
+        <span th:if="${statusStat.even}" th:text="' - 짝수 번째 항목'"></span>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <b>th:block 예제</b>
+    <ul>
+      <th:block th:with="name='Thymeleaf', version='3.0'">
+        <li th:text="'템플릿 엔진: ' + ${name}"></li>
+        <li th:text="'버전: ' + ${version}"></li>
+      </th:block>
+      <th:block th:if="${num1 > num2}">
+        <li>num1이 num2보다 큽니다.</li>
+      </th:block>
+      <th:block th:unless="${num1 > num2}">
+        <li>num1이 num2보다 작거나 같습니다.</li>
+      </th:block>
+    </ul>
+  </li>
+  <li>
+    <b>링크 예제</b>
+    <ul>
+      <li>
+        <a th:href="@{/home}" th:text="'홈으로 이동'"></a>
+      </li>
+      <li>
+        <a th:href="@{/products/{id}(id=${itemId})}" th:text="'상품 상세 보기'"></a>
+      </li>
+      <li>
+        <a th:href="${dynamicUrl}" th:text="'동적 URL로 이동'"></a>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <b>인라인 처리</b><br />
+    < script th:inline="javascript >
+    ${list}
+    const list = [[${list}]];
+    < /script >
+  </li>
+</ul>
 
-  <pre>
-        /\     /\
-       {  `---'  }
-       {  O   O  }
-       ~~>  V  <~~
-        \ \|/ /
-         `-----'____
-         /     \    \_
-        {       }\  )_\_   _
-        |  \_/  -/ /`--' ( (  )
-        \__/  (_/ /       \__/
-               ((
-                \\
-    </pre>
+<script th:inline="javascript">
+  const list = [[${list}]];
+  document.write(list);
+  console.log(JSON.stringify(list))
+</script>
+
 </body>
 </html>

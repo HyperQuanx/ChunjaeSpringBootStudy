@@ -1,3 +1,9 @@
+buildscript {
+  ext {
+    queryDslVersion = "5.1.0"
+  }
+}
+
 plugins {
   id 'java'
   id 'org.springframework.boot' version '3.2.11'
@@ -29,6 +35,8 @@ dependencies {
   implementation('org.springframework.boot:spring-boot-starter-log4j2') {
     exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
   }
+  // https://mvnrepository.com/artifact/nz.net.ultraq.thymeleaf/thymeleaf-layout-dialect
+  implementation group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '3.3.0'
 
   // https://mvnrepository.com/artifact/org.projectlombok/lombok
   compileOnly 'org.projectlombok:lombok'
@@ -43,8 +51,35 @@ dependencies {
   runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
   testImplementation 'org.springframework.boot:spring-boot-starter-test'
   testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+  implementation 'org.springframework.boot:spring-boot-starter-validation:3.3.5'
+
+  // Querydsl 설정 부분 시작
+  implementation 'jakarta.annotation:jakarta.annotation-api'
+  implementation 'jakarta.persistence:jakarta.persistence-api'
+
+  implementation 'com.querydsl:querydsl-jpa:5.1.0:jakarta'
+  implementation 'com.querydsl:querydsl-apt:5.1.0'
+  implementation 'com.querydsl:querydsl-core:5.1.0'
+  implementation 'com.querydsl:querydsl-collections:5.1.0'
+
+  annotationProcessor 'com.querydsl:querydsl-apt:5.1.0:jakarta'
+  annotationProcessor 'jakarta.annotation:jakarta.annotation-api'
+  annotationProcessor 'jakarta.persistence:jakarta.persistence-api'
+  // Querydsl 설정 부분 끝
+
+  implementation 'org.modelmapper:modelmapper:3.2.1'
 }
 
 tasks.named('test') {
   useJUnitPlatform()
 }
+
+// Querydsl 설정 부분 시작
+sourceSets {
+  main {
+    java {
+      srcDirs = ["$projectDir/src/main/java", "$buildDir/generated/querydsl"]
+    }
+  }
+}
+// Querydsl 설정 부분 끝
