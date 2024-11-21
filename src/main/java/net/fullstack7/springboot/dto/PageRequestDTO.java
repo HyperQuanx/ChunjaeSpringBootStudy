@@ -37,7 +37,7 @@ public class PageRequestDTO {
   @Min(value = 1)
   private int page_block_size = 10;
 
-  private String[] search_type;
+  private String search_type;
   private String search_word;
   private String search_date1;
   private String search_date2;

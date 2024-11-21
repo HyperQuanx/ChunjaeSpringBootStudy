@@ -42,7 +42,7 @@ public class ConditionRequestDTO {
 
   public String[] getSearch_type() {
 
-    return (search_type != null && !search_type.isEmpty()) ? search_type.split(",") : null;
+    return (search_type != null && !search_type.isEmpty()) ? search_type.split("") : null;
   }
 
   public Pageable getPageable(String...params) {

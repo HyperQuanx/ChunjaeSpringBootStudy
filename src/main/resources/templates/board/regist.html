@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html
+  lang="ko"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/basic.html}"
+>
+  <div layout:fragment="content">
+    <h1>게시글 등록</h1>
+
+    <form action="/board/regist" method="post">
+      <div class="card">
+        <div class="card-body">
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="title" class="form-label">제목</label>
+              <input
+                type="text"
+                class="form-control"
+                id="title"
+                name="title"
+                required
+              />
+            </div>
+            <div class="col-md-6">
+              <label for="memberId" class="form-label">작성자</label>
+              <input
+                type="text"
+                class="form-control"
+                id="memberId"
+                name="memberId"
+                required
+              />
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col">
+              <label for="content" class="form-label">내용</label>
+              <textarea
+                class="form-control"
+                id="content"
+                name="content"
+                rows="10"
+                required
+              ></textarea>
+            </div>
+          </div>
+          <input type="hidden" name="displayDate" id="displayDate" />
+        </div>
+        <div class="card-footer">
+          <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary me-2">등록</button>
+            <a href="/board/list" class="btn btn-secondary">취소</a>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, "0");
+        const day = String(now.getDate()).padStart(2, "0");
+        document.getElementById("displayDate").value =
+          year + "-" + month + "-" + day;
+      });
+    </script>
+  </div>
+</html>

@@ -38,24 +38,24 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
   }
 
   @Override
-  public Page<Board> search2(Pageable pageable, String[] searchCategory, String searchBoard) {
+  public Page<Board> search2(Pageable pageable, String[] searchCategory, String search_word) {
     QBoard boardQ = QBoard.board;
     JPQLQuery<Board> query = from(boardQ); // SELECT ~~ FROM tbl_board
 
-    if ((searchCategory != null) && (searchCategory.length > 0) && searchBoard != null) {
+    if ((searchCategory != null) && (searchCategory.length > 0) && search_word != null) {
       BooleanBuilder bb = new BooleanBuilder();
 
       for(String category : searchCategory) {
         switch (category) {
-          case "title":
-            bb.or(boardQ.title.like("%" + category + "%"));
+          case "t":
+            bb.or(boardQ.title.like("%" + search_word + "%"));
 //            bb.or(boardQ.title.containsIgnoreCase("%" + category + "%"));
             break;
-          case "content":
-            bb.or(boardQ.content.like("%" + category + "%"));
+          case "c":
+            bb.or(boardQ.content.like("%" + search_word + "%"));
             break;
-          case "memberId":
-            bb.or(boardQ.memberId.like("%" + category + "%"));
+          case "m":
+            bb.or(boardQ.memberId.like("%" + search_word + "%"));
             break;
         }
       }

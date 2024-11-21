@@ -1,4 +1,4 @@
-package net.fullstack7.springboot.domain;
+package net.fullstack7.springboot.dto;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -19,7 +18,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Builder
-public class BoardDTO{
+public class BoardDTO {
   private int idx;
   private String memberId;
   private String title;

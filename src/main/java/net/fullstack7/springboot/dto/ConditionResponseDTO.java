@@ -36,7 +36,7 @@ public class ConditionResponseDTO<E> {
     this.total_page = (int)Math.ceil(total_count / (double)this.page_size);
     this.page_block_end = (int)(Math.ceil(this.page_no / (double)conditionRequestDTO.getPage_block_size())) * conditionRequestDTO.getPage_block_size();
     this.page_block_end = Math.min(this.page_block_end, this.total_page);
-    this.page_block_start = this.page_block_end - (conditionRequestDTO.getPage_block_size() - 1);
+    this.page_block_start = Math.max(1, this.page_block_end - (conditionRequestDTO.getPage_block_size() - 1));
     this.prev_page_flag = this.page_block_start > 1;
     this.next_page_flag = this.total_page > this.page_block_end;
     this.dtoList = dtoList;
@@ -49,5 +49,16 @@ public class ConditionResponseDTO<E> {
       sb.append("&search_word=" + conditionRequestDTO.getSearch_word());
     }
     this.queryString = sb.toString();
+  }
+
+  // 이전 페이지 블록의 시작 페이지
+  public int getPrev_page() {
+    return page_block_start > 1 ? page_block_start - 10 : 0;
+  }
+
+  // 다음 페이지 블록의 시작 페이지
+  public int getNext_page() {
+    int total_pages = (int) Math.ceil((double) total_count / page_size);
+    return page_block_end < total_pages ? page_block_end + 1 : 0;
   }
 }

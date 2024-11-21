@@ -6,5 +6,5 @@ import org.springframework.data.domain.Pageable;
 
 public interface BoardSearch {
   Page<Board> search1(Pageable pageable);
-  Page<Board> search2(Pageable pageable, String[] searchCategory, String search);
+  Page<Board> search2(Pageable pageable, String[] searchCategory, String search_word);
 }

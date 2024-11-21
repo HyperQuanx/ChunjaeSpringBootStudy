@@ -1,9 +1,74 @@
 <!DOCTYPE html>
-<html lang="ko"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~~{layout/basic.html}"
+<html
+  lang="ko"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/basic.html}"
 >
-<div layout:fragment="content">
-  <h1>게시판 조회</h1>
-</div>
+  <div layout:fragment="content">
+    <h1>게시글 조회</h1>
+
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title" th:text="${dto.title}"></h3>
+      </div>
+      <div class="card-body">
+        <div class="row mb-3">
+          <div class="col-md-3">
+            <label class="form-label">작성자</label>
+            <input
+              type="text"
+              class="form-control"
+              th:value="${dto.memberId}"
+              readonly
+            />
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">등록일</label>
+            <input
+              type="text"
+              class="form-control"
+              th:value="${dto.displayDate}"
+              readonly
+            />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col">
+            <label class="form-label">내용</label>
+            <textarea
+              class="form-control"
+              rows="5"
+              readonly
+              th:text="${dto.content}"
+            ></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="d-flex justify-content-end">
+          <a
+            th:href="@{/board/modify(idx=${dto.idx})}"
+            class="btn btn-primary me-2"
+            >수정</a
+          >
+          <form
+            th:action="@{/board/delete}"
+            method="post"
+            style="display: inline"
+          >
+            <input type="hidden" name="idx" th:value="${dto.idx}" />
+            <button
+              type="submit"
+              class="btn btn-danger me-2"
+              onclick="return confirm('정말 삭제하시겠습니까?');"
+            >
+              삭제
+            </button>
+          </form>
+          <a th:href="@{/board/list}" class="btn btn-secondary">목록</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</html>

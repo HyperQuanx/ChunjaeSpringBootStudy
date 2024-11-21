@@ -3,7 +3,7 @@ package net.fullstack7.springboot.service;
 import java.util.stream.IntStream;
 import lombok.extern.log4j.Log4j2;
 import net.fullstack7.springboot.domain.Board;
-import net.fullstack7.springboot.domain.BoardDTO;
+import net.fullstack7.springboot.dto.BoardDTO;
 import net.fullstack7.springboot.dto.ConditionRequestDTO;
 import net.fullstack7.springboot.dto.ConditionResponseDTO;
 import org.junit.jupiter.api.Test;
