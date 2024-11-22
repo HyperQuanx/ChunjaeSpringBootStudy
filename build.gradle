@@ -68,6 +68,9 @@ dependencies {
   // Querydsl 설정 부분 끝
 
   implementation 'org.modelmapper:modelmapper:3.2.1'
+
+  // https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui
+  implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
 }
 
 tasks.named('test') {
